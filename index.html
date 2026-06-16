@@ -347,7 +347,7 @@ async function runReview() {
       if (f.name.toLowerCase().endsWith('.pdf')) {
         const b64 = await fileToBase64(f);
         userContent.push({ type: 'text', text: `[파일명: ${f.name}]` });
-        userContent.push({ type: 'image_url', image_url: { url: `data:application/pdf;base64,${b64}` } });
+        const text = await pdfToText(f); userContent.push({ type: 'text', text: `[PDF내용]\n${text}` });
       } else {
         const csv = await excelToText(f);
         userContent.push({ type: 'text', text: `[파일명: ${f.name}]\n${csv}` });
